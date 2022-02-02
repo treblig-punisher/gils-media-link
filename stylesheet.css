@@ -24,7 +24,7 @@ body{
     flex-direction: column;
     margin-right: auto;
     margin-left: auto;
-    min-height: 500px;
+    min-height: 1000px;
     /* height: 1000px; */
     /* width: 500px; */
 }
