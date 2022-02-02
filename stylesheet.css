@@ -5,7 +5,7 @@ html, body{
     font-family: sans-serif;
 }
 :root{
-    --links-mobile-size: 300px;
+    --links-mobile-size: 200px;
     --links-desktop-size: 450px;
     --links-width-size: 300px;
 }
@@ -25,17 +25,23 @@ body{
     margin-right: auto;
     margin-left: auto;
     min-height: 1000px;
-    /* height: 1000px; */
-    /* width: 500px; */
+    /* transform: scale(0.6); */
 }
 .profile-container{
+    --mobile-size: scale(0.5);
+    --desktop-size: scale(1);
+    --container-size: var(--mobile-size);
+    --margin-mobile: -40px;
+    --margin-desktop: 60px;
+    --current-bottom-margin: var(--margin-mobile);
     display: flex;
     flex-direction: column;
     align-items: center;
     position:relative;
-    top: 40px;
-    margin-bottom: 60px;
+    top: -30px;
+    margin-bottom: var(--current-bottom-margin);
     justify-content: center;
+    transform: var(--container-size);
     
 }
 .name-occupation{
@@ -56,14 +62,15 @@ body{
     transition: transform 0.2s ease;
     box-shadow: 0px 0px 20px 4px #e66465;
 }
-.links-profile{
+/* .links-profile{
     display: flex;
     height: 50px;
     border-radius: 50%;
     background-color: antiquewhite;
-}
+} */
 
 .links-container{
+    --links-width-size: var(--links-mobile-size);
     display: flex;
     flex-direction: column;
     width: var(--links-width-size);
@@ -78,12 +85,15 @@ body{
 }
 
 .regular-links{
+    --mobile-font-size: 0.6rem;
+    --desktop-font-size: 1.2rem;
+    --current-font-size: var(--mobile-font-size);
     display: block;
     text-decoration: none;
     text-align: center;
     /* cursor: pointer; */
     /* border: none; */
-    font-size: 1.2rem;
+    font-size: var(--current-font-size);
     font-weight: bold;
     justify-content: center;
     /* height: 50px; */
@@ -114,6 +124,7 @@ body{
     margin-right: auto;
     margin-left: auto;
     height: 50px;
+    transform: scale(0.6);
 }
 .media-icon{
     width: 40px;
@@ -135,8 +146,22 @@ body{
     background-image: url("twitch_logo.svg");  
 }
 @media (min-width: 1000px){
-    .links-container{
+    .profile-container{
+        top: 40px;
+        --container-size: var(--desktop-size);
+        --current-bottom-margin: var(--margin-desktop);
+        --current-font-size: var(--desktop-font-size);
 
-        --links-width-size: var(--links-desktop-size); 
+    }
+    .links-container{
+        --links-width-size: var(--links-desktop-size);          
+    }
+
+    .regular-links{
+        --current-font-size: var(--desktop-font-size);
+    }
+
+    .social-media-container{
+        transform: scale(1);
     }
 }
