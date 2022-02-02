@@ -6,8 +6,8 @@ html, body{
 }
 :root{
     --links-mobile-size: 300px;
-    --links-desktop-size: 300px;
-    --links-width-size: var(--links-mobile-size);
+    --links-desktop-size: 450px;
+    --links-width-size: 300px;
 }
 
 body{
@@ -135,5 +135,8 @@ body{
     background-image: url("twitch_logo.svg");  
 }
 @media (min-width: 1000px){
+    .links-container{
 
+        --links-width-size: var(--links-desktop-size); 
+    }
 }
