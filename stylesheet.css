@@ -31,7 +31,7 @@ body{
     --mobile-size: scale(0.5);
     --desktop-size: scale(1);
     --container-size: var(--mobile-size);
-    --margin-mobile: -40px;
+    --margin-mobile: -60px;
     --margin-desktop: 60px;
     --current-bottom-margin: var(--margin-mobile);
     display: flex;
@@ -80,8 +80,8 @@ body{
     margin-left: auto;
 }
 
-.links-container a:not(:last-child){
-    margin-bottom: 20px;
+.links-container :not(:last-child){
+    margin-bottom: 10px;
 }
 
 .regular-links{
@@ -116,7 +116,7 @@ body{
 .social-media-container{
     display:flex;
     flex-direction: row;
-    margin-top: 20px;
+    margin-top: 5px;
     justify-content: space-evenly;
     align-items: center;
     /* background-color: blanchedalmond; */
