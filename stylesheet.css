@@ -5,9 +5,9 @@ html, body{
     font-family: sans-serif;
 }
 :root{
-    --links-mobile-size: 200px;
+    --links-mobile-size: 300px;
     --links-desktop-size: 450px;
-    --links-width-size: 300px;
+    --links-width-size: var(--links-mobile-size);
 }
 
 body{
@@ -85,7 +85,7 @@ body{
 }
 
 .regular-links{
-    --mobile-font-size: 0.6rem;
+    --mobile-font-size: 1rem;
     --desktop-font-size: 1.2rem;
     --current-font-size: var(--mobile-font-size);
     display: block;
