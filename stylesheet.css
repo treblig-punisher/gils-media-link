@@ -11,11 +11,12 @@ html, body{
 }
 
 body{
-    background-image: url("main_background.png");
+    background-image: url("main_background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position:center;
     background-attachment: fixed;
+    backdrop-filter: blur(4px);
  
 }
 .wrapper{
@@ -49,7 +50,8 @@ body{
     font-size: 1.1rem;
     text-align: center;
     font-family: sans-serif;
-    color: rgb(255, 255, 255);
+    color: white;
+    /* text-shadow: black 0px 1px 4px; */
     font-weight: bold;
 }
 .profile-container img:hover{
@@ -74,7 +76,7 @@ body{
     display: flex;
     flex-direction: column;
     width: var(--links-width-size);
-    justify-content: center;
+    justify-content: center;    
     align-items: center;
     margin-right: auto;
     margin-left: auto;
@@ -91,8 +93,7 @@ body{
     display: block;
     text-decoration: none;
     text-align: center;
-    /* cursor: pointer; */
-    /* border: none; */
+    outline: aqua 1px solid;
     font-size: var(--current-font-size);
     font-weight: bold;
     justify-content: center;
@@ -100,17 +101,17 @@ body{
     padding: 20px 0px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.856);
-    color: rgb(111, 255, 159);
+    color: aqua;
     border-radius: 40px;
     transition: background-color 0.3s ease,
                 width 0.3s ease;
 }
 
 .regular-links:hover{
-    background-color: rgb(247, 250, 84);
+    background-color: #17d8ff;
     width: 110%;
-    color: rgb(18, 16, 27);
-    box-shadow: 0px 0px 20px 4px #e66465;
+    color: white;
+    box-shadow: 0px 0px 20px 4px #17d8ff;
 }
 
 .social-media-container{
