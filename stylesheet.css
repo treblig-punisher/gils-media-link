@@ -1,49 +1,69 @@
-html, body{
+html,
+body {
     box-sizing: border-box;
-    margin:0px;
+    margin: 0px;
     /* height: 100%; */
     font-family: sans-serif;
 }
-:root{
+
+:root {
     --links-mobile-size: 300px;
     --links-desktop-size: 450px;
     --links-width-size: var(--links-mobile-size);
 }
+::-webkit-scrollbar {
+    width: 20px;
+   
+}
 
-body{
+::-webkit-scrollbar-track {
+    background: rgb(15, 2, 31);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1a4edd;
+    border-radius: 10px;
+    border: 2px solid rgb(15, 2, 31);
+}
+::-webkit-scrollbar-thumb:hover{
+    background: #00d5ff;
+    
+}
+
+body {
     background-image: url("main_background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position:center;
+    background-position: center;
     background-attachment: fixed;
-    backdrop-filter: blur(4px); 
+    backdrop-filter: blur(4px);
 }
-.wrapper{
-    display: flex;
-    flex-direction: column;
-    margin-right: auto;
-    margin-left: auto;
-    min-height: 1000px;
-    /* transform: scale(0.6); */
+
+.wrapper {
+    display: grid;
+    place-items: center;
+    gap: 20px;
+    padding-top: 20px;
+    padding-inline: 20px;
+    /* margin-bottom: 6rem; */
+    /* min-height: 110dvh; */
+    
 }
-.profile-container{
+
+.profile-container {
     --mobile-size: scale(0.5);
     --desktop-size: scale(1);
     --container-size: var(--mobile-size);
     --margin-mobile: -60px;
     --margin-desktop: 60px;
     --current-bottom-margin: var(--margin-mobile);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position:relative;
-    top: -30px;
-    margin-bottom: var(--current-bottom-margin);
-    justify-content: center;
-    transform: var(--container-size);
-    
+    display: grid;
+    place-items: center;
+    position: relative;
+
 }
-.name-occupation{
+
+.name-occupation {
     margin-top: 20px;
     font-size: 1.1rem;
     text-align: center;
@@ -52,39 +72,37 @@ body{
     /* text-shadow: black 0px 1px 4px; */
     font-weight: bold;
 }
-.profile-container img:hover{
+
+.profile-container img:hover {
     transform: scale(1.2);
 }
-.profile-container img{
+
+.profile-container img {
     border-radius: 50%;
     height: 150px;
     background: linear-gradient(#e66465, #9198e5);
     transition: transform 0.2s ease;
     box-shadow: 0px 0px 20px 4px #e66465;
 }
-/* .links-profile{
-    display: flex;
-    height: 50px;
-    border-radius: 50%;
-    background-color: antiquewhite;
-} */
 
-.links-container{
-    --links-width-size: var(--links-mobile-size);
-    display: flex;
-    flex-direction: column;
-    width: var(--links-width-size);
-    justify-content: center;    
-    align-items: center;
-    margin-right: auto;
-    margin-left: auto;
+
+.links-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+    min-width: 100%;
+    scrollbar-width:20px;
+    scrollbar-color: #1a4edd #110527;
+    padding-bottom: 40px;
+    gap: 10px;
+    @media screen and (width > 1000px) {
+        min-width: 50%;
+    }
+
+    transition: min-width 0.3s ease;
 }
 
-.links-container :not(:last-child){
-    margin-bottom: 10px;
-}
-
-.regular-links{
+.regular-links {
     --mobile-font-size: 1rem;
     --desktop-font-size: 1.2rem;
     --current-font-size: var(--mobile-font-size);
@@ -96,23 +114,24 @@ body{
     font-weight: bold;
     justify-content: center;
     padding: 20px 0px;
-    width: 100%;
+    width: var(--links-width-size);
     background-color: rgba(0, 0, 0, 0.856);
     color: aqua;
     border-radius: 40px;
     transition: background-color 0.3s ease,
-                width 0.3s ease;
+        width 0.3s ease;
 }
 
-.regular-links:hover, .regular-links:focus{
+.regular-links:hover,
+.regular-links:focus {
     background-color: #17d8ff;
-    width: 110%;
+    width: 70%;
     color: white;
     box-shadow: 0px 0px 20px 4px #17d8ff;
 }
 
-.social-media-container{
-    display:flex;
+.social-media-container {
+    display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
@@ -120,9 +139,9 @@ body{
     margin-inline: auto;
     margin-block: 20px;
     height: 50px;
-    
 }
-.media-icon{
+
+.media-icon {
     width: 40px;
     height: 50px;
     background-repeat: no-repeat;
@@ -130,33 +149,24 @@ body{
     transition: transform 0.2s ease;
 }
 
-.media-icon:hover{
+/* .media-icon:hover {
     transform: scale(1.2);
 }
-.media-icon.twitter{
-    background-image: url("twitter_logo.svg");  
+
+.media-icon.twitter {
+    background-image: url("twitter_logo.svg");
 }
 
-.media-icon.twitch{
-    background-image: url("twitch_logo.svg");  
-}
+.media-icon.twitch {
+    background-image: url("twitch_logo.svg");
+} */
+
 @media (min-width: 1000px){
-    .profile-container{
-        top: 40px;
-        --container-size: var(--desktop-size);
-        --current-bottom-margin: var(--margin-desktop);
-        --current-font-size: var(--desktop-font-size);
-
-    }
     .links-container{
         --links-width-size: var(--links-desktop-size);          
     }
 
     .regular-links{
         --current-font-size: var(--desktop-font-size);
-    }
-
-    .social-media-container{
-        transform: scale(1);
     }
 }
