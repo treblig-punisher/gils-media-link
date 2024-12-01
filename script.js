@@ -1,5 +1,3 @@
-// const regularLinkContainers = document.querySelectorAll('.regular-links');    
-// const links = document.querySelectorAll('.regular-links > a ');
 const clipboardButton = `
 <span focusable="true" tabindex="0">
     <svg fill="#17d8ff" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 52 52"
@@ -13,27 +11,6 @@ const clipboardButton = `
     </svg>
 </span>
 `;
-
-
-// regularLinkContainers.forEach(element => {
-//     element.insertAdjacentHTML('beforeend', clipboardButton)
-// })
-// const buttons =  document.querySelectorAll('.regular-links > span'); 
-// buttons.forEach((element, index) => {
-//     const parentLink = links[index].href;
-    
-//     element.addEventListener('click', (e) => {            
-//         e.stopPropagation();
-        
-//         navigator.clipboard.writeText(parentLink).then(() => {
-//             console.log(`Copied link to clipboard`);
-//         }).catch(err=>{
-//             console.log(err);});
-//     });
-// });
-
-
-    
 
 class ClickableElement extends HTMLElement {
     constructor() {
@@ -129,8 +106,6 @@ class ClickableElement extends HTMLElement {
         `
 
         const shadow = this.attachShadow({ mode: 'open' });
-        
-        
         const innerChildren = `
         <a type="button" target="_blank" href="${this.dataset.link}" focusable="false">${this.dataset.content}</a>
         ${clipboardButton}`
