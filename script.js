@@ -1,5 +1,5 @@
 const clipboardButton = `
-<span focusable="true" tabindex="0" role="button" aria-label="Copy to clipboard" >
+<span class="social-clipboard-button" focusable="true" tabindex="0" role="button" aria-label="Copy to clipboard" >
     <svg fill="#17d8ff" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 52 52"
         enable-background="new 0 0 52 52" xml:space="preserve">
         <path
@@ -11,7 +11,7 @@ const clipboardButton = `
     </svg>
 </span>
 `;
-
+let nodesToRemove = [];
 class ClickableElement extends HTMLElement {
     constructor() {
         super();
@@ -32,23 +32,22 @@ class ClickableElement extends HTMLElement {
                 --mobile-font-size: 1rem;
                 --desktop-font-size: 1.2rem;
                 --current-font-size: var(--mobile-font-size);
+                display: flex;
                 color: aqua;
-                display: block;
                 position: relative;
-                a{
-                    display: inline-block;
+                
+                .social-button-text{
                     min-width: 100%;
-                    min-height: 100%;
-                    text-decoration: none;
+                    padding-block: 20px;
+                    text-decoration: none;                    
                     color: aqua;
-                    user-select: none;        
+                    user-select: none;                           
                 }
                 text-align: center;
                 outline: aqua 1px solid;
                 font-size: var(--current-font-size);
                 font-weight: bold;
                 justify-content: center;
-                padding: 20px 0px;
                 width: var(--links-width-size);
                 background-color: rgba(0, 0, 0, 0.856);                
                 border-radius: 40px;
@@ -57,10 +56,12 @@ class ClickableElement extends HTMLElement {
                 span{
                     position: absolute;
                     right: 50px;
+                    top: 20px;
                     z-index: 50;
                     padding-inline: 20px;        
                     &:hover, &:focus{
-                        cursor: pointer;     
+                        cursor: pointer;
+                        svg{fill: white;}
                         @media screen and (width > 500px) {
                             &:after{
                                 content: "Copy to clipboard";
@@ -69,7 +70,7 @@ class ClickableElement extends HTMLElement {
                                 padding-inline: 10px;
                                 padding-block: 10px;
                                 border-radius: 10px;
-                                color: black;
+                                color: white;
                                 outline: white solid 2px;   
                                 box-shadow: 0px 0px 10px 1px black;
                                 animation: slide-from-right 0.3s ease forwards;
@@ -83,22 +84,19 @@ class ClickableElement extends HTMLElement {
                 } 
             }
             :host(:hover),
-            :host(:focus) {
-                &:not(span:hover){
-                    background-color: #17d8ff;
-                    box-shadow: 0px 0px 20px 4px #17d8ff;
-                    cursor:default;
-                    a{color: black;}
-                }                
+            :host(:focus){
+                .social-button-text{color: white;}               
+                background-color: #17d8ff;
+                box-shadow: 0px 0px 20px 4px #17d8ff;
+                cursor:default;                                 
                 svg{fill: black;}
-                color: white;
             } 
         `
 
         const shadow = this.attachShadow({ mode: 'open' });
-        this._copyToClipboardFocused = false;
+        
         const innerChildren = `
-        <a type="button" target="_blank" href="${this.dataset.link}" tabindex="-1">${this.dataset.content}</a>
+        <a class="social-button-text" type="button" target="_blank" href="${this.dataset.link}" tabindex="-1">${this.dataset.content}</a>
         ${clipboardButton}`
         const innerElems = document.createElement('template');
         innerElems.innerHTML = innerChildren;
@@ -115,24 +113,70 @@ class ClickableElement extends HTMLElement {
 
     }
     keyPressed(e){
-        // console.log(document.activeElement);
-        if(e.key === 'Enter' && document.activeElement !== this.span) this.aTag.click();
+        if(e.key === 'Enter') this.aTag.click();
         if(e.key === 'Escape') e.target.blur();
     }
-    get copyToClipboardFocused(){
-        return this._copyToClipboardFocused;
-    }
-    set updateCopyToClipboardFocused(val){
-        this._copyToClipboardFocused = val;
-    }
+    
     connectedCallback() {
+        
         this.span.addEventListener('click', (e) => {            
             navigator.clipboard.writeText(this.aTag.href).then(() => {
+                const notif = document.createElement('notification-message');
+                nodesToRemove.push(notif);
+                document.body.appendChild(notif);
+                notif.disappearTimer();   
                 console.log(`Copied link to clipboard`);
             }).catch(err=>{console.log(err);});        
-        });
-        
+        });        
     }
+}
+class NotificationMessage extends HTMLElement {
+    constructor() {
+        super();
+        const spanElem = `<span>Link copied to clipboard</span>`;
+        const spanTemplate = document.createElement('template');
+        spanTemplate.innerHTML = spanElem;
+       
+        const style = document.createElement('style'); 
+        style.textContent = /*css*/`
+            @keyframes slide-up{
+                from{ bottom: -100%;}
+                to{ bottom: 80px; }
+            }
+            :host{
+                display: flex;
+                position: fixed;
+                bottom: 20px;
+                background-color: grey;
+                padding-inline: 20px;
+                padding-block: 10px;
+                width: max-content;
+                right: 50%;
+                left: 50%;
+                translate: -50%;
+                color: white;
+                outline: darkgrey solid 2px;
+                border-radius: 20px;
+                animation: slide-up 0.4s ease forwards;
+                z-index: 110;
+                span{
+                    font-size: 1.2rem;
+                    color: white; font-weight: bold;
+                }
+            }`
+        const shadow = this.attachShadow({ mode: 'open' });
+        shadow.appendChild(spanTemplate.content.cloneNode(true));
+        shadow.appendChild(style);        
+    }
+    disappearTimer(){
+        return setTimeout(() => {
+            const nodeToRemove = nodesToRemove.filter(node => node === this)
+            this.parentNode.removeChild(nodeToRemove[0]);
+            nodesToRemove = nodesToRemove.filter(node => node !== this);
+            console.log(nodesToRemove)
+        }, 1500);
+    }    
 }
 
 customElements.define('social-media-button', ClickableElement);
+customElements.define('notification-message', NotificationMessage);
