@@ -61,18 +61,20 @@ class ClickableElement extends HTMLElement {
                     padding-inline: 20px;        
                     &:hover, &:focus{
                         cursor: pointer;     
-                        &:after{
-                            content: "Copy to clipboard";
-                            position: absolute;
-                            background-color: #17d8ff;
-                            padding-inline: 10px;
-                            padding-block: 10px;
-                            border-radius: 10px;
-                            color: black;
-                            outline: white solid 2px;   
-                            box-shadow: 0px 0px 10px 1px black;
-                            animation: slide-from-right 0.3s ease forwards;
-                            top: -40px;
+                        @media screen and (width > 500px) {
+                            &:after{
+                                content: "Copy to clipboard";
+                                position: absolute;
+                                background-color: #17d8ff;
+                                padding-inline: 10px;
+                                padding-block: 10px;
+                                border-radius: 10px;
+                                color: black;
+                                outline: white solid 2px;   
+                                box-shadow: 0px 0px 10px 1px black;
+                                animation: slide-from-right 0.3s ease forwards;
+                                top: -40px;
+                            }
                         }       
                     }      
                     @media screen and (width < 1000px) {
