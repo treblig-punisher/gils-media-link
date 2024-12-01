@@ -1,3 +1,6 @@
+html{
+    background: black; 
+}
 html,
 body {
     box-sizing: border-box;
@@ -29,14 +32,26 @@ body {
     background: #00d5ff;
     
 }
-
+@keyframes fade-out-anim {
+    from{ opacity: 0;}
+    to{ opacity: 1;}
+}
 body {
-    background-image: url("main_background.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    backdrop-filter: blur(4px);
+    animation: fade-out-anim 0.8s ease-in-out forwards;
+    &::before{
+        content: "";
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-image: url("main_background.webp");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        backdrop-filter: blur(5px);  
+    }  
+    
 }
 
 .wrapper {
@@ -45,8 +60,6 @@ body {
     gap: 20px;
     padding-top: 20px;
     padding-inline: 20px;
-    /* margin-bottom: 6rem; */
-    /* min-height: 110dvh; */
     
 }
 
@@ -65,7 +78,7 @@ body {
 
 .name-occupation {
     margin-top: 20px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     text-align: center;
     font-family: sans-serif;
     color: white;
@@ -98,16 +111,32 @@ body {
     @media screen and (width > 1000px) {
         min-width: 50%;
     }
-
     transition: min-width 0.3s ease;
 }
-
+@keyframes slide-from-right {
+    from{
+        left: 120px;
+        opacity: 0;
+    }
+    to{
+        left: 70px;
+        opacity: 1;
+    }
+}
 .regular-links {
     --mobile-font-size: 1rem;
     --desktop-font-size: 1.2rem;
     --current-font-size: var(--mobile-font-size);
+    color: aqua;
     display: block;
-    text-decoration: none;
+    position: relative;
+    a{
+        display: inline-block;
+        min-width: 100%;
+        text-decoration: none;
+        color: aqua;
+        user-select: none;        
+    }
     text-align: center;
     outline: aqua 1px solid;
     font-size: var(--current-font-size);
@@ -116,19 +145,50 @@ body {
     padding: 20px 0px;
     width: var(--links-width-size);
     background-color: rgba(0, 0, 0, 0.856);
-    color: aqua;
+    
     border-radius: 40px;
     transition: background-color 0.3s ease,
-        width 0.3s ease;
+        width 0.2s ease;
+    span{
+        position: absolute; 
+        /* transform: translateX(50%); */
+        right: 50px;
+        z-index: 50;
+        padding-inline: 20px;        
+        &:hover{
+            cursor: pointer;     
+            &:after{
+                content: "Copy to clipboard";
+                position: absolute;
+                background-color: #17d8ff;
+                padding-inline: 10px;
+                padding-block: 10px;
+                border-radius: 10px;
+                color: white;
+                outline: white solid 2px;
+                /* left: 70px; */
+                animation: slide-from-right 0.3s ease forwards;
+                top: -40px;
+            }       
+        }      
+        @media screen and (width < 1000px) {
+            right: 10px;
+        }        
+    }  
+    &:hover,
+    &:focus {
+        &:not(span:hover){
+            background-color: #17d8ff;
+            box-shadow: 0px 0px 20px 4px #17d8ff;
+            cursor:default;
+            a{color: white;}
+        }
+    
+        svg{fill: white;}
+    }  
 }
 
-.regular-links:hover,
-.regular-links:focus {
-    background-color: #17d8ff;
-    width: 70%;
-    color: white;
-    box-shadow: 0px 0px 20px 4px #17d8ff;
-}
+
 
 .social-media-container {
     display: flex;
@@ -149,24 +209,14 @@ body {
     transition: transform 0.2s ease;
 }
 
-/* .media-icon:hover {
-    transform: scale(1.2);
-}
-
-.media-icon.twitter {
-    background-image: url("twitter_logo.svg");
-}
-
-.media-icon.twitch {
-    background-image: url("twitch_logo.svg");
-} */
 
 @media (min-width: 1000px){
     .links-container{
         --links-width-size: var(--links-desktop-size);          
     }
 
-    .regular-links{
-        --current-font-size: var(--desktop-font-size);
+    .regular-links, social-media-button{
+        --current-font-size: var(--desktop-font-size);        
     }
+    
 }
