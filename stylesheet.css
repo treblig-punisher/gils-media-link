@@ -123,7 +123,7 @@ body {
         opacity: 1;
     }
 }
-.regular-links {
+/* .regular-links {
     --mobile-font-size: 1rem;
     --desktop-font-size: 1.2rem;
     --current-font-size: var(--mobile-font-size);
@@ -152,7 +152,7 @@ body {
     span{
         position: absolute; 
         /* transform: translateX(50%); */
-        right: 50px;
+        /* right: 50px;
         z-index: 50;
         padding-inline: 20px;        
         &:hover{
@@ -167,15 +167,15 @@ body {
                 color: white;
                 outline: white solid 2px;
                 /* left: 70px; */
-                animation: slide-from-right 0.3s ease forwards;
+                /* animation: slide-from-right 0.3s ease forwards;
                 top: -40px;
             }       
-        }      
-        @media screen and (width < 1000px) {
+        }       */
+        /* @media screen and (width < 1000px) {
             right: 10px;
         }        
-    }  
-    &:hover,
+    }   */ 
+    /* &:hover,
     &:focus {
         &:not(span:hover){
             background-color: #17d8ff;
@@ -186,7 +186,7 @@ body {
     
         svg{fill: white;}
     }  
-}
+} */ 
 
 
 
