@@ -117,8 +117,7 @@ class ClickableElement extends HTMLElement {
         if(e.key === 'Escape') e.target.blur();
     }
     
-    connectedCallback() {
-        
+    connectedCallback() {        
         this.span.addEventListener('click', (e) => {            
             navigator.clipboard.writeText(this.aTag.href).then(() => {
                 const notif = document.createElement('notification-message');
@@ -177,6 +176,35 @@ class NotificationMessage extends HTMLElement {
         }, 1500);
     }    
 }
-
+const bannerContainer = document.getElementById('cookie-banner');
+bannerContainer.style.display = 'none';
+const acceptButton = document.getElementById('accept-cookies');
+const declineButton = document.getElementById('decline-cookies');
 customElements.define('social-media-button', ClickableElement);
 customElements.define('notification-message', NotificationMessage);
+
+function checkCookieConsent() 
+{
+    bannerContainer.style.display = localStorage.getItem('cookieConsent') === null? 'flex': 'none';
+}
+function setGoogleAnalytics(idManager)
+{
+    const script = document.createElement('script');
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${idManager}`;
+    script.async = true;
+    document.head.appendChild(script);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', idManager);    
+}
+acceptButton.addEventListener('click', () => {
+    localStorage.setItem('cookieConsent', 'true');
+    bannerContainer.style.display = 'none';
+    setGoogleAnalytics('G-MHQG3PM3C9');
+});
+declineButton.addEventListener('click', () => {
+    localStorage.setItem('cookieConsent', 'false');
+    bannerContainer.style.display = 'none';
+});
+checkCookieConsent();
